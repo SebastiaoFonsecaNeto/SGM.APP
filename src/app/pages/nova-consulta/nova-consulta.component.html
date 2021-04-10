@@ -1,0 +1,71 @@
+<div [ngBusy]="{busy: busy, message: 'Aguarde...'}"></div>
+<div class="main-wrapper" fxLayout="row" fxLayoutAlign="center center">
+	<mat-card>
+		<mat-card-header>
+			<mat-card-title>Encontre o melhor horário</mat-card-title>
+		</mat-card-header>
+		<br>
+		<br>
+		<div class="mat-elevation-z8">
+			<mat-form-field appearance="fill">
+				<mat-label>No Período de:</mat-label>
+				<mat-date-range-input [rangePicker]="picker">
+				  <input matStartDate placeholder="Data inicial" [(ngModel)]="dataInicial" name="dataInicial">
+				  <input matEndDate placeholder="Data Final" [(ngModel)]="dataFinal" name="dataFinal">
+				</mat-date-range-input>
+				<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+			</mat-form-field>
+			<mat-date-range-picker #picker></mat-date-range-picker>
+			<mat-form-field appearance="fill" style=" margin-left: 10px;">
+				<mat-label>Especialidade</mat-label>
+				<mat-select  [(ngModel)]="especialidade">
+				  <mat-option *ngFor="let data of especialidadesDisponiveis" [value]="data">
+					{{data}}
+				  </mat-option>
+				</mat-select>
+			</mat-form-field>
+			<button mat-stroked-button color="primary" class="btn" style="line-height: 35px; margin-left: 15px;" (click)="procurarHorario()">Procurar Horários</button>
+			<table mat-table [dataSource]="dataSource">
+				<ng-container matColumnDef="select">
+					<th mat-header-cell *matHeaderCellDef> Selecione </th>
+					<td mat-cell *matCellDef="let row">
+					  <mat-checkbox (click)=" selectedRow=row; $event.stopPropagation()"
+									(change)="$event ? selection.toggle(row) : null"
+									[checked]="selection.isSelected(row)"
+									[aria-label]="checkboxLabel(row)">
+					  </mat-checkbox>
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="Medico">
+					<th mat-header-cell *matHeaderCellDef> Médico </th>
+					<td mat-cell *matCellDef="let element"> {{element.medico}} </td>
+				</ng-container>
+				<ng-container matColumnDef="CRM">
+					<th mat-header-cell *matHeaderCellDef> CRM </th>
+					<td mat-cell *matCellDef="let element"> {{element.crm}} </td>
+				</ng-container>
+				<ng-container matColumnDef="Especialidade">
+					<th mat-header-cell *matHeaderCellDef> Especialidade </th>
+					<td mat-cell *matCellDef="let element"> {{element.especialidade}} </td>
+				</ng-container>
+				<ng-container matColumnDef="DataConsulta">
+					<th mat-header-cell *matHeaderCellDef> Data </th>
+					<td mat-cell *matCellDef="let element"> {{element.dataConsulta | date:'dd/MM/yyyy'}} </td>
+				</ng-container>
+				<ng-container matColumnDef="Horario">
+					<th mat-header-cell *matHeaderCellDef> Horário </th>
+					<td mat-cell *matCellDef="let element"> {{element.dataConsulta | date:'HH:mm'}} </td>
+				</ng-container>
+				<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+			</table>
+			<mat-paginator [pageSizeOptions]="[5,10]"></mat-paginator>
+		</div>
+		<br>
+		<button mat-stroked-button color="primary" class="btn-block" (click)="marcarConsulta()">Marcar Consulta</button>
+		<br>
+		<br>
+		<button mat-stroked-button class="btn-block" [routerLink]="['/consulta']">Voltar</button>
+	</mat-card>
+
+</div>

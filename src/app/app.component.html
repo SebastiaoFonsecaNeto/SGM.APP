@@ -1,0 +1,33 @@
+<!-- Toolbar -->
+<mat-toolbar color="primary" *ngIf="login">
+  <mat-toolbar-row>
+    <button mat-icon-button aria-label="Menu" class="toolbar-icon" (click)="drawer.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>&nbsp; Sistema de Gestão Municipal</span>
+    <span class="toolbar-spacer"></span>
+    <button mat-icon-button aria-label="Sair" class="toolbar-icon">
+      <mat-icon (click)="sair()">logout</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-drawer-container class="container" autosize>
+  <mat-drawer #drawer class="sidenav" mode="side">
+    <p>
+      <button mat-icon-button aria-label="Impostos" class="toolbar-icon" [routerLink]="['/imposto']">
+        <mat-icon>paid</mat-icon>
+        <span class="sidebar-title"><b>Impostos</b></span>
+      </button>
+    </p>
+    <p>
+      <button mat-icon-button aria-label="Consultas" class="toolbar-icon" [routerLink]="['/consulta']">
+        <mat-icon>today</mat-icon>
+        <span class="sidebar-title"><b>Consultas</b></span>
+      </button>
+    </p>
+  </mat-drawer>
+
+  <div class="sidenav-content" style="overflow:auto;">
+    <router-outlet></router-outlet>
+  </div>
+</mat-drawer-container>

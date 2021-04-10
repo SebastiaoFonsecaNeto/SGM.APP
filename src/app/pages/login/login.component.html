@@ -1,0 +1,35 @@
+<div [ngBusy]="{busy: busy, message: 'Aguarde...'}"></div>
+<div class="main-wrapper" fxLayout="row" fxLayoutAlign="center center">
+	<mat-card class="box">
+		<mat-card-header>
+			<mat-card-title>Entrar</mat-card-title>
+		</mat-card-header>
+		<br>
+		<br>
+		<form class="example-form">
+			<mat-card-content>
+				<mat-form-field class="example-full-width">
+					<input matInput placeholder="Email" [(ngModel)]="user.login" name="email">
+				</mat-form-field>
+
+				<mat-form-field class="example-full-width">
+					<input matInput [type]="hide ? 'password' : 'text'" placeholder="Senha" [(ngModel)]="user.senha" name="senha">
+    				<button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+    					<mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    				</button>
+				</mat-form-field>
+			</mat-card-content>
+			<button mat-stroked-button color="primary" class="btn-block" (click)="entrar()">Entrar
+			</button>
+			<br>
+			<br>
+			<mat-card-footer>
+				Esqueceu a senha? <a [routerLink]="['/cadastro']">Redefinir</a> 
+				<br>
+				<br>
+				Não tem acesso? <a [routerLink]="['/cadastro']">Cadastrar-se</a> 
+			</mat-card-footer>
+		</form>
+	</mat-card>
+
+</div>

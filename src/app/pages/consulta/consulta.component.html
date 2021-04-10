@@ -1,0 +1,51 @@
+<div [ngBusy]="{busy: busy, message: 'Aguarde...'}"></div>
+<div class="main-wrapper" fxLayout="row" fxLayoutAlign="center center">
+	<mat-card>
+		<mat-card-header>
+			<mat-card-title>Consultas Agendadas</mat-card-title>
+		</mat-card-header>
+		<br>
+		<br>
+		<div class="mat-elevation-z8">
+			<table mat-table [dataSource]="dataSource">
+				<ng-container matColumnDef="Medico">
+					<th mat-header-cell *matHeaderCellDef> Médico </th>
+					<td mat-cell *matCellDef="let element"> {{element.medico}} </td>
+				</ng-container>
+				<ng-container matColumnDef="CRM">
+					<th mat-header-cell *matHeaderCellDef> CRM </th>
+					<td mat-cell *matCellDef="let element"> {{element.crm}} </td>
+				</ng-container>
+				<ng-container matColumnDef="Especialidade">
+					<th mat-header-cell *matHeaderCellDef> Especialidade </th>
+					<td mat-cell *matCellDef="let element"> {{element.especialidade}} </td>
+				</ng-container>
+				<ng-container matColumnDef="DataConsulta">
+					<th mat-header-cell *matHeaderCellDef> Data </th>
+					<td mat-cell *matCellDef="let element"> {{element.dataConsulta | date:'dd/MM/yyyy'}} </td>
+				</ng-container>
+				<ng-container matColumnDef="Horario">
+					<th mat-header-cell *matHeaderCellDef> Horário </th>
+					<td mat-cell *matCellDef="let element"> {{element.dataConsulta | date:'HH:mm'}} </td>
+				</ng-container>
+				<ng-container matColumnDef="Desmarcar">
+					<th mat-header-cell *matHeaderCellDef> Desmarcar </th>
+					<td mat-cell *matCellDef="let element">
+						<button mat-icon-button color="warn" *ngIf="validarData(element.dataConsulta)" (click)="desmarcar(element)">
+							<mat-icon>remove_circle</mat-icon>
+						</button>
+					</td>
+				</ng-container>
+				<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+			</table>
+			<mat-paginator [pageSizeOptions]="[5,10]"></mat-paginator>
+		</div>
+		<br>
+		<button mat-stroked-button color="primary" class="btn-block" [routerLink]="['/nova-consulta']">Agendar Nova Consulta</button>
+		<br>
+		<br>
+		<button mat-stroked-button class="btn-block" [routerLink]="['/home']">Voltar</button>
+	</mat-card>
+
+</div>
